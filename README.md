@@ -40,5 +40,38 @@ python manage.py startapp APP_NAME
 * __tests\.py__ : This file contains unit tests for the app. You can write test cases to ensure that your app's functionality works as expected.
 * __views\.py__ : This file contains the views (controllers) for the app. Views are Python functions that handle incoming requests, process data, and return responses.
 
+## Run the server
+```shell
+python manage.py runserver
+```
+Open in your browser the link https://127.0.0.1:8000
 
+## HttpResponse
+in the __view\.py__ file in the APP folder create the function for the view
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
 
+# Create your views here.
+def home(request):
+    return HttpResponse('<h1>Hellow World!</h1>')
+```
+Then create a __urls\.py__ file in the some folder and insert the folowing code :
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home')
+]
+```
+Then in the file __urls\.py__ in the Project folder modify the code as the folowing :
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('hello.urls'))
+]
+```
