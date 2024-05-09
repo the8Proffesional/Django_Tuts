@@ -24,6 +24,8 @@ python manage.py runserver
 python manage.py startapp APP_NAME
 ```
 
+
+
 ## Folder structure
 
 1. PROJECT_NAME
@@ -45,6 +47,22 @@ python manage.py startapp APP_NAME
 python manage.py runserver
 ```
 Open in your browser the link https://127.0.0.1:8000
+
+
+## Add  App_name definition
+in the __setting\.py__ file add the name of the app in the __INSTALLED_APPS__ array :
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # own
+    'app_name'
+]
+```
 
 ## HttpResponse
 in the __view\.py__ file in the APP folder create the function for the view
