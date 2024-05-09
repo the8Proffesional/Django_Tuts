@@ -46,7 +46,7 @@ python manage.py startapp APP_NAME
 ```shell
 python manage.py runserver
 ```
-Open in your browser the link https://127.0.0.1:8000
+Open in your browser the link http://127.0.0.1:8000
 
 
 ## Add  App_name definition
@@ -64,7 +64,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-## HttpResponse
+## View with HttpResponse
 in the __view\.py__ file in the APP folder create the function for the view
 ```python
 from django.shortcuts import render
@@ -93,3 +93,36 @@ urlpatterns = [
     path('', include('hello.urls'))
 ]
 ```
+
+## Views with html templates
+
+in tha App folder add a folder with the name __templates__, in it add a hellow world html file (index.html):
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello</title>
+</head>
+<body>
+    <h1>Hellow world!</h1>   
+</body>
+</html>
+```
+in the __view\.py__ file in the APP folder create the function for the view
+
+```python
+def index(request):
+    return render(request, 'index.html')
+```
+Add the url in the __urls\.py__ in the App folder
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home')
+    path('index/', views.index, name='index')
+]
+```
+Run the server and tape the url in the adresse bar of the browser : http://127.0.0.1:8000/index
