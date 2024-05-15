@@ -185,3 +185,30 @@ In the html file
     </ul>
 {% endblock %}
 ```
+
+## Create Model
+
+In __models\.py__ you can create a class for your Model with attributes :
+
+
+```python
+from django.db import models
+
+class Items(models.Model):
+    name = Models.CharField(max_length = 50)
+    
+    def __str__(self):
+        return self.name
+```
+
+In terminal run the commands
+
+```bash
+python manage.py makemigrations
+```
+ then
+
+ ```bash
+python manage.py migrate
+```
+
