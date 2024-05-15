@@ -65,7 +65,9 @@ INSTALLED_APPS = [
 ```
 
 ## View with HttpResponse
+
 in the __view\.py__ file in the APP folder create the function for the view
+
 ```python
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -75,6 +77,7 @@ def home(request):
     return HttpResponse('<h1>Hellow World!</h1>')
 ```
 Then create a __urls\.py__ file in the some folder and insert the folowing code :
+
 ```python
 from django.urls import path
 from . import views
@@ -83,7 +86,9 @@ urlpatterns = [
     path('', views.home, name='home')
 ]
 ```
+
 Then in the file __urls\.py__ in the Project folder modify the code as the folowing :
+
 ```python
 from django.contrib import admin
 from django.urls import path, include
@@ -96,7 +101,7 @@ urlpatterns = [
 
 ## Views with html templates
 
-in tha App folder add a folder with the name __templates__, in it add a hellow world html file (index.html):
+in tha App folder add a folder with the name __templates__, in it add a folder with the App name in it add the html file (index.html):
 
 ```html
 <!DOCTYPE html>
@@ -113,16 +118,70 @@ in the __view\.py__ file in the APP folder create the function for the view
 
 ```python
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'app_name/index.html')
 ```
 Add the url in the __urls\.py__ in the App folder
+
 ```python
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('index/', views.index, name='index')
+    path('', views.index, name='index'),
 ]
 ```
 Run the server and tape the url in the adresse bar of the browser : http://127.0.0.1:8000/index
+
+## Tamplates layout
+
+In __app_name__ folder in  __templates__ folder add a base html file (base.html) whith the content:
+
+```django
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello</title>
+</head>
+<body>
+    {% block content %}
+    <!--here come the content-->
+    {% endblock %}
+</body>
+</html>
+```
+
+then the index.html file become:
+
+```django
+{% extends 'app_name/base.html' %}
+{% block content %}
+    <h1>Hellow world!</h1> 
+{% endblock %}
+```
+## Access to data from the views
+
+We can access data from the __views\.py__ in the html file
+
+```python
+items =[
+    { 'name':'Item one' },
+    { 'name':'Item tow' },
+    { 'name':'Item tree' }
+]
+def index(request):
+    context = { 'items' : items }
+    return render(request, 'app_name/index.html', context)
+```
+In the html file
+
+```django
+{% extends 'app_name/base.html' %}
+{% block content %}
+    <h1>Items List</h1>
+     <ul>
+        {% for item in items %}
+            <li>{{ item.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+```
